@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio — Votre Nom</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #F7F6F3;
+      --ink:      #1A1A18;
+      --mid:      #6B6B62;
+      --accent:   #2D5BE3;
+      --line:     #E2E1DC;
+      --white:    #FFFFFF;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      line-height: 1.6;
+      font-size: 16px;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.25rem 4rem;
+      background: rgba(247,246,243,.88);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+      z-index: 100;
+    }
+    .nav-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.25rem;
+      color: var(--ink);
+      text-decoration: none;
+      letter-spacing: -.01em;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--mid);
+      font-size: .875rem;
+      font-weight: 400;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--ink); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 7rem 4rem 4rem;
+      gap: 4rem;
+    }
+    .hero-text { max-width: 520px; }
+    .eyebrow {
+      font-size: .75rem;
+      font-weight: 500;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.25rem;
+    }
+    h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.8rem, 5vw, 4.5rem);
+      line-height: 1.08;
+      letter-spacing: -.02em;
+      margin-bottom: 1.5rem;
+    }
+    h1 em { font-style: italic; color: var(--mid); }
+    .hero-bio {
+      font-size: 1.05rem;
+      color: var(--mid);
+      max-width: 420px;
+      margin-bottom: 2.5rem;
+    }
+    .btn-group { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn {
+      display: inline-block;
+      padding: .75rem 1.75rem;
+      border-radius: 2px;
+      font-size: .875rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all .2s;
+      cursor: pointer;
+    }
+    .btn-primary { background: var(--ink); color: var(--white); }
+    .btn-primary:hover { background: var(--accent); }
+    .btn-ghost { border: 1px solid var(--line); color: var(--ink); background: transparent; }
+    .btn-ghost:hover { border-color: var(--ink); }
+
+    /* ── PHOTO ── */
+    .hero-photo {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .photo-frame {
+      position: relative;
+      width: min(420px, 100%);
+      aspect-ratio: 4/5;
+    }
+    .photo-frame::before {
+      content: '';
+      position: absolute;
+      inset: -12px -12px 12px 12px;
+      border: 1px solid var(--accent);
+      z-index: 0;
+      opacity: .35;
+    }
+    .photo-frame img, .photo-placeholder {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .photo-placeholder {
+      background: var(--line);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: .75rem;
+      color: var(--mid);
+      font-size: .85rem;
+    }
+    .photo-placeholder svg { opacity: .4; }
+
+    /* ── SECTIONS ── */
+    section { padding: 6rem 4rem; }
+    section + section { border-top: 1px solid var(--line); }
+    .section-label {
+      font-size: .7rem;
+      font-weight: 500;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 3rem;
+    }
+    h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      line-height: 1.15;
+      letter-spacing: -.015em;
+      margin-bottom: 1rem;
+    }
+
+    /* ── À PROPOS ── */
+    #apropos .inner {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 5rem;
+      align-items: start;
+    }
+    .skills-list { list-style: none; margin-top: 2rem; }
+    .skills-list li {
+      padding: .6rem 0;
+      border-bottom: 1px solid var(--line);
+      font-size: .9rem;
+      color: var(--mid);
+      display: flex;
+      justify-content: space-between;
+    }
+    .skills-list li span { color: var(--ink); font-weight: 500; }
+    .about-text p { color: var(--mid); margin-bottom: 1.25rem; font-size: 1rem; }
+
+    /* ── PROJETS ── */
+    #projets .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2px;
+      margin-top: 3rem;
+    }
+    .card {
+      background: var(--white);
+      padding: 2.25rem;
+      transition: transform .25s, box-shadow .25s;
+    }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,.07); }
+    .card-tag {
+      font-size: .7rem;
+      font-weight: 500;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: .75rem;
+    }
+    .card h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.35rem;
+      margin-bottom: .75rem;
+    }
+    .card p { font-size: .9rem; color: var(--mid); }
+    .card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      margin-top: 1.25rem;
+      font-size: .8rem;
+      font-weight: 500;
+      color: var(--ink);
+      text-decoration: none;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+    .card-link::after { content: '→'; transition: transform .2s; }
+    .card-link:hover::after { transform: translateX(4px); }
+
+    /* ── CONTACT ── */
+    #contact {
+      background: var(--ink);
+      color: var(--white);
+      text-align: center;
+    }
+    #contact .section-label { color: rgba(255,255,255,.4); }
+    #contact h2 { color: var(--white); margin-bottom: 1rem; }
+    #contact p { color: rgba(255,255,255,.55); max-width: 420px; margin: 0 auto 2.5rem; }
+    #contact .btn-primary { background: var(--accent); }
+    #contact .btn-primary:hover { background: var(--white); color: var(--ink); }
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 3rem;
+      flex-wrap: wrap;
+    }
+    .contact-links a {
+      font-size: .8rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.4);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .contact-links a:hover { color: var(--white); }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 1.5rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      font-size: .75rem;
+      color: var(--mid);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1.25rem; }
+      #hero { grid-template-columns: 1fr; padding: 6rem 1.5rem 3rem; text-align: center; }
+      .hero-text { max-width: 100%; }
+      .hero-bio { max-width: 100%; }
+      .btn-group { justify-content: center; }
+      .hero-photo { order: -1; }
+      .photo-frame { max-width: 280px; }
+      section { padding: 4rem 1.5rem; }
+      #apropos .inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      footer { flex-direction: column; gap: .5rem; text-align: center; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#hero" class="nav-logo">V.N.</a>
+    <ul class="nav-links">
+      <li><a href="#apropos">À propos</a></li>
+      <li><a href="#projets">Projets</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-text">
+      <p class="eyebrow">Disponible pour de nouveaux projets</p>
+      <h1>DIOUF,<br /><em>Créateur &amp;<br />Professionnel</em></h1>
+      <p class="hero-bio">
+        Je conçois des expériences numériques claires et mémorables — de l'idée jusqu'au produit final.
+      </p>
+      <div class="btn-group">
+        <a href="#projets" class="btn btn-primary">Voir mes projets</a>
+        <a href="#contact" class="btn btn-ghost">Me contacter</a>
+      </div>
+    </div>
+
+    <div class="hero-photo">
+      <div class="photo-frame">
+        
+
+          <img src="WhatsApp Image 2026-06-16 at 13.11.01.jpeg" alt="Votre Nom" />
+       
+        <!-- <div class="photo-placeholder"> -->
+          <svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+            <circle cx="12" cy="8" r="4"/>
+            <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+          </svg>
+          <!-- <span>Ajoutez votre photo ici</span> -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- À PROPOS -->
+  <section id="apropos">
+    <p class="section-label">À propos</p>
+    <div class="inner">
+      <div>
+        <h2>Passionné par<br />le détail juste.</h2>
+        <ul class="skills-list">
+          <li>Design UI/UX <span>⬤⬤⬤⬤○</span></li>
+          <li>Développement web <span>⬤⬤⬤⬤⬤</span></li>
+          <li>Branding <span>⬤⬤⬤○○</span></li>
+          <li>Motion design <span>⬤⬤⬤⬤○</span></li>
+        </ul>
+      </div>
+      <div class="about-text">
+        <p>Remplacez ce texte par votre propre histoire. Parlez de votre parcours, de ce qui vous anime, de votre façon de travailler.</p>
+        <p>Diplômé en [votre domaine], j'ai travaillé pour des clients allant de startups ambitieuses à des entreprises établies. Je crois que la simplicité est la forme la plus haute de sophistication.</p>
+        <p>En dehors du travail, vous me trouverez [votre passion ou loisir].</p>
+        <a href="#contact" class="btn btn-ghost" style="margin-top:.5rem">Travaillons ensemble →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJETS -->
+  <section id="projets">
+    <p class="section-label">Projets sélectionnés</p>
+    <h2>Ce que j'ai construit.</h2>
+    <div class="grid">
+      <div class="card">
+        <p class="card-tag">Design · 2024</p>
+        <h3>Projet Alpha</h3>
+        <p>Refonte complète de l'interface d'une application SaaS — résultat : +40 % de rétention utilisateur.</p>
+        <a href="#" class="card-link">Voir le projet</a>
+      </div>
+      <div class="card">
+        <p class="card-tag">Développement · 2024</p>
+        <h3>Projet Beta</h3>
+        <p>Plateforme e-commerce sur mesure avec paiement intégré, construite en 6 semaines.</p>
+        <a href="#" class="card-link">Voir le projet</a>
+      </div>
+      <div class="card">
+        <p class="card-tag">Branding · 2023</p>
+        <h3>Projet Gamma</h3>
+        <p>Identité visuelle complète pour une startup : logo, charte graphique, templates.</p>
+        <a href="#" class="card-link">Voir le projet</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <p class="section-label">Contact</p>
